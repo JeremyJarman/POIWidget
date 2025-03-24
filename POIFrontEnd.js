@@ -3,7 +3,7 @@
     const loadGoogleMapsAPI = () => {
         return new Promise((resolve) => {
             const script = document.createElement('script');
-            script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyC4g85rcc1TATe518qhfCRHX3f80Jpq1tg&libraries=places';
+            script.src = 'https://maps.googleapis.com/maps/api/js?key=&libraries=places';
             script.async = true;
             script.onload = resolve;
             document.head.appendChild(script);
@@ -102,4 +102,16 @@
     } else {
         initWidget();
     }
+
+    // Fetch autocomplete results
+    const fetchAutocompleteResults = async (input) => {
+        try {
+            const response = await fetch(`/api/autocomplete?input=${encodeURIComponent(input)}`);
+            const data = await response.json();
+            console.log('Autocomplete Results:', data);
+            return data;
+        } catch (error) {
+            console.error('Error fetching autocomplete results:', error);
+        }
+    };
 })();
